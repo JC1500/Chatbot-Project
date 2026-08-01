@@ -1,0 +1,10 @@
+.env
+.streamlit
+secrets.toml
+backend
+newenv
+Model-02.pem
+modelProject.txt
+redistest.ipynb
+test.py
+__pycache__

@@ -1,0 +1,9 @@
+langchain
+langchain-core
+langchain-openrouter
+typing
+pymongo
+langchain-redis
+streamlit
+streamlit[auth]
+uuid
