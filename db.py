@@ -22,7 +22,6 @@ def push_to_store(session_id: str, chat_id: int, chat: List[Dict[str, str]], use
       print(e)
    
 def get_from_store(session_id: str, user_email: str) -> List[Dict[str, str]]:
-   # Ensure users can only query their own data
    l = database.find({'session_id': session_id, 'user_email': user_email}, sort={"name": ASCENDING})
    ret = []
    for obj in l:
@@ -30,7 +29,6 @@ def get_from_store(session_id: str, user_email: str) -> List[Dict[str, str]]:
    return ret
 
 def get_user_sessions(user_email: str) -> List[str]:
-   # Optional: Fetch all unique session IDs belonging to this specific user
    with database.find({"user_email": user_email}) as  cus:
       s=set()
       for doc in cus:
@@ -45,7 +43,6 @@ if(__name__=='__main__'):
    try:
       client.admin.command("ping")
       print("Connected successfully")
-      # other application code
       # push_to_store(chat_id=44,session_id='987660-346378',chat=l)
       l=get_from_store('987660-346378','689')
       print(l)

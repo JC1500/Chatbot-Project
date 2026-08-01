@@ -7,7 +7,6 @@ from db import push_to_store, get_from_store,get_user_sessions
 import random
 
 # --- Authentication Check ---
-# Safe check to prevent crashes if auth isn't initialized yet
 if not getattr(st.user, 'is_logged_in', False):
     st.title("Welcome to Chatbot App")
     st.write("Please log in to continue.")
@@ -15,14 +14,12 @@ if not getattr(st.user, 'is_logged_in', False):
         st.login()
     st.stop()
 
-# --- Sidebar Logout Option ---
 st.sidebar.write(f"Logged in as: **{st.user.name}**")
 st.sidebar.write(f"Logged in as: **{st.user.email}**")
 
 if st.sidebar.button("Log out"):
     st.logout()
 
-# --- Existing Session State Logic ---
 if 'message_hist' not in st.session_state:
     st.session_state['message_hist'] = []
 
@@ -42,7 +39,8 @@ def create_session():
     st.session_state['sessions'].append(st.session_state['session_id'])
     st.session_state['chat_id'] = [random.randint(0, 100)]
 
-# Extract the logged-in user's email
+
+
 current_user_email = st.user.email
 
 def update():
@@ -50,7 +48,7 @@ def update():
         session_id=st.session_state['session_id'],
         chat_id=st.session_state['chat_id'][-1],
         chat=st.session_state['message_hist'][-2:],
-        user_email=str(current_user_email)  # Pass user context
+        user_email=str(current_user_email)
     )
     st.session_state['chat_id'].append(st.session_state['chat_id'][-1] + 1)
 chatbot = RedisModel(st.session_state['session_id'])
@@ -63,7 +61,6 @@ if st.sidebar.button('NEW CONV'):
         create_session()
 
 st.sidebar.header('Message History')
-# Ideally, fetch sessions belonging only to this user from the DB
 user_sessions = get_user_sessions(str(current_user_email))
 st.session_state['sessions'].extend(user_sessions)
 
