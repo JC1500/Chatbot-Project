@@ -17,4 +17,4 @@
 - `docker-compose.yaml`: Orchestrates the Redis container (`redis:latest`) and Streamlit application container with all required environment variables (`MONGO_URI`, `OPENROUTER_API_KEY`, `REDIS_URL`, `OIDC_*`).
 - `requirements.txt`: Project package dependencies (`langchain`, `langchain-core`, `langchain-openrouter`, `pymongo`, `langchain-redis`, `streamlit`, `streamlit[auth]`).
 
-Access: `http://http://3.110.48.106.nip.io:8501`
+Access: `http://3.110.48.106.nip.io:8501`
